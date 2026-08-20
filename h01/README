@@ -1,0 +1,16 @@
+# RAPORTTI H01
+
+Toteutin tehtävän virtuaalisella Linux-serverillä käyttäen Oracle Virtual Boxia.
+
+Tein ensin uuteen hakemistoon tiedoston hello.c, jonne kirjoitin C-kielellä yksinkertaisen hello world-ohjelman. Koodiesimerkki löytyi Uncodemy-sivustolta. Editorina käytin nanoa.
+
+Tiedoston kääntämisessä (compile) löysin avuksi videon YouTubesta. Tässä näytettiin yksinkertaisesti tiedoston kääntäminen gcc -komennolla. Asensin gcc:n komennolla sudo apt install gcc. Nimesin käännetyn suoritettavan tiedoston komennolla gcc hello.c -o helloExecutable.
+
+Binäärin tulostamiseen etsin tietoa Googlettamalla, ja löysin esimerkin StackOverflowsta. Komento xxd -b "tiedostonimi" tulosti terminaaliin binäärikoodin ja lisäämällä komentoon | less tulosteesta tuli vieritettävä. Tulostuksen oikeassa laidassa näkyi, että tiedoston alussa on kirjaimet ELF (Executable and Linkable Format), joka kertoo että kyseessä on standardinomainen binääritiedostotyyppi. Tulostuksen keskellä näkyi binäärikoodi nollin ja ykkösinä. Jokaisella rivillä oli kuusi merkkiä, eli kuusi kahdeksanbittistä binäärimerkintää. Loput tulosteesta oli vaikeaselkoista, mutta pistin merkille, että valtaosa riveistä oli tyhjiä.
+
+### Lähteet
+
+https://uncodemy.com/blog/print-hello-world-in-c-beginner-guide
+https://www.youtube.com/watch?v=RHaEVmupows
+https://stackoverflow.com/questions/1765311/how-to-view-files-in-binary-from-bash
+https://medium.com/@l.mabelebel/understanding-the-elf-format-a-deep-dive-into-executables-on-linux-2d41da6a578b
