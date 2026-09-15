@@ -1,0 +1,71 @@
+Find Hidden Web Directories - Fuzz URLs with ffuf
+Web servers often have secret directories, not linked from anywhere.
+
+You could find them by trying different paths manually: /secret, /.svn /admin. This article shows you how fuff can do this to you automatically.
+
+For practice, I coded a target that you can run locally, without Internet. I will also tell you the solution, so you can test your environment. As bonus, there is a challenge target where you can find to solution yourself.
+
+What the Fuff?
+Fuff is a web fuzzer by joohoi. This article shows you how you can use it to find hidden directories, just like gobuster or dirbuster.
+
+Fuff is a full featured fuzzing tool. This article just fuzzes hidden directories, but you can also use fuff to fuzz anything: headers, POST parameters...
+
+Use of penetration testing techniques requires legal and ethical considerations. To safely use these tools, tactics and procedures, you might need to obtain contracts and permissions; and posses adequate technical skills. Check your local laws.
+
+Fuff is very fast. Disconnect your internet and play locally to avoid leaking packets to the Internet.
+
+This tutorial was tested on Debian Linux amd64. It probably works on other Linuxes, too.
+
+Download a sample target
+Here is a sample target I wrote for you: dirfuzt-0. It has a secret page, not linked from anywhere from the site. Download it and run it
+
+$ wget https://terokarvinen.com/2023/fuzz-urls-find-hidden-directories/dirfuzt-0
+$ chmod u+x dirfuzt-0
+$ ./dirfuzt-0
+Learn more at TeroKarvinen.com
+http://127.0.0.2:8000
+Now you can use your browser, like Firefox, to browse the site (use the URL dirfuzt prints you)
+
+http://127.0.0.2:8000
+
+
+Does it say "Nothing, nil, null, nada."? Well, now you have your practice target running.
+
+As long as the server is running, it will not give you the prompt back. You can use shell from another window.
+
+Manually
+Let's try our luck! Maybe it's http://127.0.0.2:8000/secret ? Nope.
+
+We could keep trying. Or we could let ffuf try a huge number of URLs for us, automatically.
+
+Install ffuf, a fast web fuzzer / dir buster
+Update 2025: It's even easier now. In Debian 12 Bookworm, you can use package manager:
+
+$ sudo apt-get update
+$ sudo apt-get install ffuf
+Alternative install without package manager (click to expand).
+Well done, now you've got ffuf installed.
+
+Install a Dictionary of Common Web Paths
+We'll still need a dictionary. For directories, a text file with possible directories, one per line. You could even write one yourself:
+
+secret/
+.svn/
+dashboard/
+But luckily, many such dictionaries already exist. We can use one from Seclists by Daniel Miessler and others.
+
+$ wget https://raw.githubusercontent.com/danielmiessler/SecLists/master/Discovery/Web-Content/common.txt
+In case it ever disappears, here is a local mirror of SecLists common.txt It's just one path after another, just short of five thousand paths total.
+
+$ head -3 common.txt 
+.bash_history
+.bashrc
+.cache
+$ wc -l common.txt 
+4715 common.txt
+Fuzz Faster, You F^H^H^Hool!
+Fuff is very fast. Now might be a good time to disconnect your Internet before you start generating a lot of requests.
+
+You can see all ffuf parameters with
+
+$ ./fuff
